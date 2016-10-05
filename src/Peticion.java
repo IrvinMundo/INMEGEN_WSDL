@@ -1,4 +1,10 @@
 import java.io.File;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.security.PrivateKey;
+import java.security.cert.X509Certificate;
 import java.io.IOException;
 //import java.security.PrivateKey;
 //import java.util.Map;
@@ -22,6 +28,25 @@ public class Peticion {
 
 	  private static X509Certificate cert;
 	  private static PrivateKey key;
+	  private static PrivateKey key;
+
+	  private static X509Certificate cert;
+
+	    @BeforeClass
+	    public static void loadKeys() throws Exception {
+
+	        key = KeyLoaderFactory.createInstance(
+	                KeyLoaderEnumeration.PRIVATE_KEY_LOADER,
+	                "resources/certs/aaa010101aaa__csd_01.key",
+	                "12345678a"
+	        ).getKey();
+
+	        cert = KeyLoaderFactory.createInstance(
+	                KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
+	                "resources/certs/aaa010101aaa__csd_01.cer"
+	        ).getKey();
+	    }
+
 	  /*public static void loadKeys() throws Exception {
 		    key = KeyLoaderFactory.createInstance(
 		            KeyLoaderEnumeration.PRIVATE_KEY_LOADER,
@@ -37,7 +62,7 @@ public class Peticion {
 	  
 	  /** Retorna una llave privada utilizando los datos y la passphrase indicada. Se utiliza apache-commons-ssl para esto
 	   * ya que no hay manera simple de hacerlo directo con java */
-	  public static PrivateKey getPrivateKey(File pkeyFile, String passphrase){
+	  /*public static PrivateKey getPrivateKey(File pkeyFile, String passphrase){
 	      try {
 	          byte[] keyBytes = FileUtils.readFileToByteArray(pkeyFile);
 	          return getPrivateKey(keyBytes, passphrase);
@@ -47,7 +72,7 @@ public class Peticion {
 	  }
 	  /** Retorna una llave privada utilizando los datos y la passphrase indicada. Se utiliza not-yet-commons-ssl para esto
 	   * ya que no hay manera simple de hacerlo directo con java */
-	  public static PrivateKey getPrivateKey(byte[] encryptedKey, String passphrase){
+	  /*public static PrivateKey getPrivateKey(byte[] encryptedKey, String passphrase){
 	      try {
 	          PKCS8Key pkcs8 = new PKCS8Key(encryptedKey, passphrase.toCharArray()); 
 	          return  ((Object) pkcs8).getPrivateKey();
@@ -69,7 +94,7 @@ public class Peticion {
 	        req_context.put("RFC", "AIS8012085L7");
 	         
 	        return port.procesarPaquete(parameters);
-	    }
-	 
-	  }
+	    }*/
+
+	  
 }
